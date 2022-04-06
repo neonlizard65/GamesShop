@@ -1,0 +1,83 @@
+﻿<Page x:Class="GamesShop.AdminPAGES.AddGame"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GamesShop.AdminPAGES"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1400"
+      Title="AddGame">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="350*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image x:Name="BackBtn" MouseDown="BackBtn_MouseDown" 
+               Source="/Resources/back.png" 
+               Height="40" Width="40" Cursor="Hand" />
+        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <StackPanel Orientation="Vertical"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                <StackPanel Orientation="Horizontal" Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Название " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="NazvanieBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Разработчик " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="DevBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Издатель " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="PubBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Дата выпуска " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="PubDate" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Описание " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="DescBox" Width="400" Height="Auto" TextWrapping="Wrap"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Цена " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="PriceBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Жанры (через запятую c пробелом) " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="GenreBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Операционная система " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="OSBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="ЦП " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="CPUBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="ОЗУ " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="RamBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Видеокарта " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="GpuBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Объем " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="StorageBox" Width="400"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0, 0, 0 ,5" HorizontalAlignment="Right">
+                    <TextBlock Text="Фото (путь к файлу) " Margin="0, 0, 10, 0"/>
+                    <TextBox x:Name="PhotoBox" Width="400"/>
+                </StackPanel>
+
+            </StackPanel>
+            <Button Name="SaveBtn" Content="Добавить" Click="SaveBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

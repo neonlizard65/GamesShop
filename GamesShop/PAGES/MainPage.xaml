@@ -1,0 +1,34 @@
+﻿<Page x:Class="GamesShop.PAGES.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GamesShop.PAGES"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1600"
+      Title="MainPage">
+
+    <Grid>
+        <ScrollViewer CanContentScroll="True" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden"  >
+            <ListView x:Name="GameBox" VerticalAlignment="Top" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="Transparent" PreviewMouseLeftButtonUp="GameBox_PreviewMouseLeftButtonUp">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Border Height="350" Width="250" BorderThickness="1" BorderBrush="White" CornerRadius="12, 12, 12, 12">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding Picture}" Stretch="Fill" />
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Text="{Binding Nazvanie}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Transparent" FontSize="24"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+    </Grid>
+</Page>

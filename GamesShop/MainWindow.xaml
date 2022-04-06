@@ -1,0 +1,116 @@
+﻿<Window x:Class="GamesShop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GamesShop"
+        mc:Ignorable="d"
+        Title="Главное окно" Height="960" Width="1600" MinWidth="1200" MinHeight="720" Icon="Resources/SOEyL0uJO4I.jpg" WindowState="Maximized" WindowStyle="None">
+    <Grid Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="210*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.ColumnSpan="8" Grid.RowSpan="2" Opacity="0.8" Stretch="UniformToFill">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="0.8" BeginTime="0:0:0"  Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.8" To="0.2" BeginTime="0:0:5"  Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="0.8" BeginTime="0:0:10" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.8" To="0.2" BeginTime="0:0:15" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="0.8" BeginTime="0:0:20" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.8" To="0.2" BeginTime="0:0:25" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="0.8" BeginTime="0:0:30" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.8" To="0.2" BeginTime="0:0:35" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="0.8" BeginTime="0:0:40" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.8" To="0.2" BeginTime="0:0:45"  Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="0.8" BeginTime="0:0:50" Duration="0:0:5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.8" To="0.2" BeginTime="0:0:55" Duration="0:0:5"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Source"
+                                                   Duration="0:0:55">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage  UriSource="Resources/8gWTFzyHLQXnTGiVhRLeea.jpg"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:10">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage  UriSource="Resources/thumb-1920-1151026.jpg"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:20">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage  UriSource="Resources/GhostwireTokyo_Screenshot_Tokyo_3840x2160-scaled.jpg"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:30">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage  UriSource="Resources/PREVIEW_SCREENSHOT4_540669.jpg"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:40">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage  UriSource="Resources/the-witcher-3-wild-hunt-753-1.png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:50">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage  UriSource="Resources/jc4.jpg"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        
+        <Frame x:Name="MainFrame" Grid.ColumnSpan="8" Grid.Row="1"
+                   NavigationUIVisibility="Hidden" />
+
+
+        <Image x:Name="BackBtn" MouseDown="BackBtn_MouseDown" 
+               Source="Resources/back.png" 
+               Height="40" Width="40" Cursor="Hand" />
+
+        <Image x:Name="Homebtn"  Grid.Column="1"  MouseDown="Homebtn_MouseDown"
+               Source="Resources/Home.png"
+               Height="40" Width="40" Cursor="Hand" />
+
+        <TextBox x:Name="SearchBox" Grid.Column="2" 
+                 Height="30" Width="900" Opacity="0.8" VerticalAlignment="Center" FontSize="20" PreviewKeyDown="SearchBox_PreviewKeyDown"/>
+
+        <Image x:Name="Avtorizationbtn"  Grid.Column="3"  MouseDown="Avtorizationbtn_MouseDown"
+               Source="Resources/door.png"
+               Height="40" Width="40" Cursor="Hand" />
+
+        <Image x:Name="Wishlist" Grid.Column="4" MouseDown="Wishlist_MouseDown"
+               Source="Resources/wishlist.png"
+               Height="40" Width="40" Cursor="Hand"/>
+
+        <Image x:Name="Cart" Grid.Column="5" MouseDown="Cart_MouseDown"
+               Source="Resources/cart.png"
+               Height="40" Width="40" Cursor="Hand" />
+
+        <Image x:Name="Check" Grid.Column="6" MouseDown="Check_MouseDown"
+               Source="Resources/check.png"
+               Height="40" Width="40" Cursor="Hand" />
+        <Image x:Name="Close" Grid.Column="7" MouseDown="Close_MouseDown"
+               Source="Resources/x.png"
+               Height="40" Width="40" Cursor="Hand" />
+
+    </Grid>
+</Window>

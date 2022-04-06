@@ -1,0 +1,934 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShopGamesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="IDCart" />
+          </Key>
+          <Property Name="IDCart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iduser" Type="int" Nullable="false" />
+          <Property Name="idgame" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="IDComment" />
+          </Key>
+          <Property Name="IDComment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iduser" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="nvarchar(max)" />
+          <Property Name="idgame" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Developer">
+          <Key>
+            <PropertyRef Name="IDDeveloper" />
+          </Key>
+          <Property Name="IDDeveloper" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazvaniaDeveloper" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="IDGames" />
+          </Key>
+          <Property Name="IDGames" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazvanie" Type="nvarchar" MaxLength="50" />
+          <Property Name="idDeveloper" Type="int" Nullable="false" />
+          <Property Name="idPublisher" Type="int" Nullable="false" />
+          <Property Name="Pablicationdate" Type="date" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Price" Type="money" />
+          <Property Name="idSystemrequirements" Type="int" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="IDGenre" />
+          </Key>
+          <Property Name="IDGenre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazvaniaGenre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GenreGames">
+          <Key>
+            <PropertyRef Name="IDGenreGames" />
+          </Key>
+          <Property Name="IDGenreGames" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idgenre" Type="int" Nullable="false" />
+          <Property Name="idgame" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="IDKey" />
+          </Key>
+          <Property Name="IDKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cdKey" Type="nvarchar" MaxLength="20" />
+          <Property Name="gameId" Type="int" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="IDReceipt" />
+          </Key>
+          <Property Name="IDReceipt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iduser" Type="int" Nullable="false" />
+          <Property Name="idgame" Type="int" Nullable="false" />
+          <Property Name="idkey" Type="int" Nullable="false" />
+          <Property Name="DataBuying" Type="date" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="IDPublisher" />
+          </Key>
+          <Property Name="IDPublisher" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazvaniePublisher" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SystemRequirements">
+          <Key>
+            <PropertyRef Name="IDSystemRequirements" />
+          </Key>
+          <Property Name="IDSystemRequirements" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OS" Type="nvarchar" MaxLength="50" />
+          <Property Name="CPU" Type="nvarchar" MaxLength="150" />
+          <Property Name="RAM" Type="nvarchar" MaxLength="50" />
+          <Property Name="GPU" Type="nvarchar" MaxLength="150" />
+          <Property Name="Storage" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Adminisrator" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="IDWishlist" />
+          </Key>
+          <Property Name="IDWishlist" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iduser" Type="int" Nullable="false" />
+          <Property Name="idgame" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Bascet_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bascet_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Developer">
+          <End Role="Developer" Type="Self.Developer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Developer">
+              <PropertyRef Name="IDDeveloper" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="idDeveloper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Publisher">
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="IDPublisher" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="idPublisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_SystemRequirements">
+          <End Role="SystemRequirements" Type="Self.SystemRequirements" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemRequirements">
+              <PropertyRef Name="IDSystemRequirements" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="idSystemrequirements" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenersGames_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GenreGames" Type="Self.GenreGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="GenreGames">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenersGames_Genere">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GenreGames" Type="Self.GenreGames" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="IDGenre" />
+            </Principal>
+            <Dependent Role="GenreGames">
+              <PropertyRef Name="idgenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_KeyGames">
+          <End Role="Keys" Type="Self.Keys" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keys">
+              <PropertyRef Name="IDKey" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="idkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Cometari_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Cometari_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wihlist_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wihlist_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopGamesModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Developer" EntityType="Self.Developer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GenreGames" EntityType="Self.GenreGames" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publisher" EntityType="Self.Publisher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemRequirements" EntityType="Self.SystemRequirements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bascet_Games" Association="Self.FK_Bascet_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bascet_Users" Association="Self.FK_Bascet_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Developer" Association="Self.FK_Games_Developer">
+            <End Role="Developer" EntitySet="Developer" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Publisher" Association="Self.FK_Games_Publisher">
+            <End Role="Publisher" EntitySet="Publisher" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_SystemRequirements" Association="Self.FK_Games_SystemRequirements">
+            <End Role="SystemRequirements" EntitySet="SystemRequirements" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenersGames_Games" Association="Self.FK_GenersGames_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GenreGames" EntitySet="GenreGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenersGames_Genere" Association="Self.FK_GenersGames_Genere">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="GenreGames" EntitySet="GenreGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Games" Association="Self.FK_Payment_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_KeyGames" Association="Self.FK_Payment_KeyGames">
+            <End Role="Keys" EntitySet="Keys" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Users" Association="Self.FK_Payment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Cometari_Games" Association="Self.FK_Table_Cometari_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Cometari_Users" Association="Self.FK_Table_Cometari_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wihlist_Games" Association="Self.FK_Wihlist_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wihlist_Users" Association="Self.FK_Wihlist_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopGamesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="IDCart" />
+          </Key>
+          <Property Name="IDCart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iduser" Type="Int32" Nullable="false" />
+          <Property Name="idgame" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_Bascet_Games" FromRole="Cart" ToRole="Games" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Bascet_Users" FromRole="Cart" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="IDComment" />
+          </Key>
+          <Property Name="IDComment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iduser" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="String" />
+          <Property Name="idgame" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_Table_Cometari_Games" FromRole="Comments" ToRole="Games" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Table_Cometari_Users" FromRole="Comments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Developer">
+          <Key>
+            <PropertyRef Name="IDDeveloper" />
+          </Key>
+          <Property Name="IDDeveloper" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazvaniaDeveloper" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Developer" FromRole="Developer" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="IDGames" />
+          </Key>
+          <Property Name="IDGames" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazvanie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idDeveloper" Type="Int32" Nullable="false" />
+          <Property Name="idPublisher" Type="Int32" Nullable="false" />
+          <Property Name="Pablicationdate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="idSystemrequirements" Type="Int32" />
+          <Property Name="Picture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Bascet_Games" FromRole="Games" ToRole="Cart" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Table_Cometari_Games" FromRole="Games" ToRole="Comments" />
+          <NavigationProperty Name="Developer" Relationship="Self.FK_Games_Developer" FromRole="Games" ToRole="Developer" />
+          <NavigationProperty Name="Publisher" Relationship="Self.FK_Games_Publisher" FromRole="Games" ToRole="Publisher" />
+          <NavigationProperty Name="SystemRequirement" Relationship="Self.FK_Games_SystemRequirements" FromRole="Games" ToRole="SystemRequirements" />
+          <NavigationProperty Name="GenreGames" Relationship="Self.FK_GenersGames_Games" FromRole="Games" ToRole="GenreGames" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_Games" FromRole="Games" ToRole="Payment" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK_Wihlist_Games" FromRole="Games" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="IDGenre" />
+          </Key>
+          <Property Name="IDGenre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazvaniaGenre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GenreGames" Relationship="Self.FK_GenersGames_Genere" FromRole="Genre" ToRole="GenreGames" />
+        </EntityType>
+        <EntityType Name="GenreGame">
+          <Key>
+            <PropertyRef Name="IDGenreGames" />
+          </Key>
+          <Property Name="IDGenreGames" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idgenre" Type="Int32" Nullable="false" />
+          <Property Name="idgame" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_GenersGames_Games" FromRole="GenreGames" ToRole="Games" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_GenersGames_Genere" FromRole="GenreGames" ToRole="Genre" />
+        </EntityType>
+        <EntityType Name="Key">
+          <Key>
+            <PropertyRef Name="IDKey" />
+          </Key>
+          <Property Name="IDKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cdKey" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_KeyGames" FromRole="Keys" ToRole="Payment" />
+          <Property Name="gameId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="IDReceipt" />
+          </Key>
+          <Property Name="IDReceipt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iduser" Type="Int32" Nullable="false" />
+          <Property Name="idgame" Type="Int32" Nullable="false" />
+          <Property Name="idkey" Type="Int32" Nullable="false" />
+          <Property Name="DataBuying" Type="DateTime" Precision="0" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_Payment_Games" FromRole="Payment" ToRole="Games" />
+          <NavigationProperty Name="Key" Relationship="Self.FK_Payment_KeyGames" FromRole="Payment" ToRole="Keys" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Payment_Users" FromRole="Payment" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="IDPublisher" />
+          </Key>
+          <Property Name="IDPublisher" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazvaniePublisher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Publisher" FromRole="Publisher" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="SystemRequirement">
+          <Key>
+            <PropertyRef Name="IDSystemRequirements" />
+          </Key>
+          <Property Name="IDSystemRequirements" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CPU" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RAM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GPU" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Storage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Games_SystemRequirements" FromRole="SystemRequirements" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adminisrator" Type="Byte" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Bascet_Users" FromRole="Users" ToRole="Cart" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Table_Cometari_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_Users" FromRole="Users" ToRole="Payment" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK_Wihlist_Users" FromRole="Users" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="IDWishlist" />
+          </Key>
+          <Property Name="IDWishlist" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iduser" Type="Int32" Nullable="false" />
+          <Property Name="idgame" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_Wihlist_Games" FromRole="Wishlist" ToRole="Games" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Wihlist_Users" FromRole="Wishlist" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Bascet_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bascet_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Cometari_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Cometari_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Developer">
+          <End Role="Developer" Type="Self.Developer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Games" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Developer">
+              <PropertyRef Name="IDDeveloper" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="idDeveloper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Publisher">
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Games" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="IDPublisher" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="idPublisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_SystemRequirements">
+          <End Role="SystemRequirements" Type="Self.SystemRequirement" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Games" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemRequirements">
+              <PropertyRef Name="IDSystemRequirements" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="idSystemrequirements" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenersGames_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GenreGames" Type="Self.GenreGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="GenreGames">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wihlist_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="IDGames" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="idgame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenersGames_Genere">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GenreGames" Type="Self.GenreGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="IDGenre" />
+            </Principal>
+            <Dependent Role="GenreGames">
+              <PropertyRef Name="idgenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_KeyGames">
+          <End Role="Keys" Type="Self.Key" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keys">
+              <PropertyRef Name="IDKey" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="idkey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wihlist_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="iduser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopGamesContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Developers" EntityType="Self.Developer" />
+          <EntitySet Name="Games" EntityType="Self.Game" />
+          <EntitySet Name="Genres" EntityType="Self.Genre" />
+          <EntitySet Name="GenreGames" EntityType="Self.GenreGame" />
+          <EntitySet Name="Keys" EntityType="Self.Key" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Publishers" EntityType="Self.Publisher" />
+          <EntitySet Name="SystemRequirements" EntityType="Self.SystemRequirement" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
+          <AssociationSet Name="FK_Bascet_Games" Association="Self.FK_Bascet_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bascet_Users" Association="Self.FK_Bascet_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Cometari_Games" Association="Self.FK_Table_Cometari_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Cometari_Users" Association="Self.FK_Table_Cometari_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Developer" Association="Self.FK_Games_Developer">
+            <End Role="Developer" EntitySet="Developers" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Publisher" Association="Self.FK_Games_Publisher">
+            <End Role="Publisher" EntitySet="Publishers" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_SystemRequirements" Association="Self.FK_Games_SystemRequirements">
+            <End Role="SystemRequirements" EntitySet="SystemRequirements" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenersGames_Games" Association="Self.FK_GenersGames_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GenreGames" EntitySet="GenreGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Games" Association="Self.FK_Payment_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wihlist_Games" Association="Self.FK_Wihlist_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenersGames_Genere" Association="Self.FK_GenersGames_Genere">
+            <End Role="Genre" EntitySet="Genres" />
+            <End Role="GenreGames" EntitySet="GenreGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_KeyGames" Association="Self.FK_Payment_KeyGames">
+            <End Role="Keys" EntitySet="Keys" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Users" Association="Self.FK_Payment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wihlist_Users" Association="Self.FK_Wihlist_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopGamesModelStoreContainer" CdmEntityContainer="ShopGamesContext">
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="ShopGamesModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="IDCart" ColumnName="IDCart" />
+                <ScalarProperty Name="iduser" ColumnName="iduser" />
+                <ScalarProperty Name="idgame" ColumnName="idgame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="ShopGamesModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="IDComment" ColumnName="IDComment" />
+                <ScalarProperty Name="iduser" ColumnName="iduser" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="idgame" ColumnName="idgame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Developers">
+            <EntityTypeMapping TypeName="ShopGamesModel.Developer">
+              <MappingFragment StoreEntitySet="Developer">
+                <ScalarProperty Name="IDDeveloper" ColumnName="IDDeveloper" />
+                <ScalarProperty Name="NazvaniaDeveloper" ColumnName="NazvaniaDeveloper" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="ShopGamesModel.Game">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="IDGames" ColumnName="IDGames" />
+                <ScalarProperty Name="Nazvanie" ColumnName="Nazvanie" />
+                <ScalarProperty Name="idDeveloper" ColumnName="idDeveloper" />
+                <ScalarProperty Name="idPublisher" ColumnName="idPublisher" />
+                <ScalarProperty Name="Pablicationdate" ColumnName="Pablicationdate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="idSystemrequirements" ColumnName="idSystemrequirements" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="ShopGamesModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="IDGenre" ColumnName="IDGenre" />
+                <ScalarProperty Name="NazvaniaGenre" ColumnName="NazvaniaGenre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GenreGames">
+            <EntityTypeMapping TypeName="ShopGamesModel.GenreGame">
+              <MappingFragment StoreEntitySet="GenreGames">
+                <ScalarProperty Name="IDGenreGames" ColumnName="IDGenreGames" />
+                <ScalarProperty Name="idgenre" ColumnName="idgenre" />
+                <ScalarProperty Name="idgame" ColumnName="idgame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keys">
+            <EntityTypeMapping TypeName="ShopGamesModel.Key">
+              <MappingFragment StoreEntitySet="Keys">
+                <ScalarProperty Name="gameId" ColumnName="gameId" />
+                <ScalarProperty Name="IDKey" ColumnName="IDKey" />
+                <ScalarProperty Name="cdKey" ColumnName="cdKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="ShopGamesModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="IDReceipt" ColumnName="IDReceipt" />
+                <ScalarProperty Name="iduser" ColumnName="iduser" />
+                <ScalarProperty Name="idgame" ColumnName="idgame" />
+                <ScalarProperty Name="idkey" ColumnName="idkey" />
+                <ScalarProperty Name="DataBuying" ColumnName="DataBuying" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishers">
+            <EntityTypeMapping TypeName="ShopGamesModel.Publisher">
+              <MappingFragment StoreEntitySet="Publisher">
+                <ScalarProperty Name="IDPublisher" ColumnName="IDPublisher" />
+                <ScalarProperty Name="NazvaniePublisher" ColumnName="NazvaniePublisher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemRequirements">
+            <EntityTypeMapping TypeName="ShopGamesModel.SystemRequirement">
+              <MappingFragment StoreEntitySet="SystemRequirements">
+                <ScalarProperty Name="IDSystemRequirements" ColumnName="IDSystemRequirements" />
+                <ScalarProperty Name="OS" ColumnName="OS" />
+                <ScalarProperty Name="CPU" ColumnName="CPU" />
+                <ScalarProperty Name="RAM" ColumnName="RAM" />
+                <ScalarProperty Name="GPU" ColumnName="GPU" />
+                <ScalarProperty Name="Storage" ColumnName="Storage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ShopGamesModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Adminisrator" ColumnName="Adminisrator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="ShopGamesModel.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="IDWishlist" ColumnName="IDWishlist" />
+                <ScalarProperty Name="iduser" ColumnName="iduser" />
+                <ScalarProperty Name="idgame" ColumnName="idgame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
